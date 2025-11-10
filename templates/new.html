@@ -1,0 +1,74 @@
+{% extends 'base.html' %} {% block title %}New paste{% endblock %} {% block
+content %} {% if error %}
+<p style="color: red">{{ error }}</p>
+{% endif %}
+
+<style>
+  .stats {
+    color: #666;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    background: #f5f5f5;
+    border-left: 3px solid #000;
+  }
+</style>
+
+<form method="post">
+  <div>
+    <p>
+      Title<br /><input
+        name="title"
+        value="{{ title or '' }}"
+        style="width: 100%"
+      />
+    </p>
+  </div>
+  <div>
+    <p>
+      Content<br /><textarea name="content" id="contentArea">
+{{ content or '' }}</textarea
+      >
+    </p>
+    <div class="stats" id="stats">0 characters • 0 words • 0 lines</div>
+  </div>
+  <div style="margin-top: 0.5rem">
+    <button
+      type="submit"
+      style="
+        display: inline-block;
+        padding: 0.75rem 1.5rem;
+        background: #000000;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+      "
+    >
+      Create
+    </button>
+  </div>
+</form>
+
+<script>
+  function updateStats() {
+    const content = document.getElementById("contentArea").value;
+    const charCount = content.length;
+    const wordCount = content
+      .trim()
+      .split(/\s+/)
+      .filter((word) => word.length > 0).length;
+    const lineCount = content.split("\n").length;
+
+    document.getElementById(
+      "stats"
+    ).textContent = `${charCount.toLocaleString()} characters • ${wordCount.toLocaleString()} words • ${lineCount.toLocaleString()} lines`;
+  }
+
+  // Update stats on input
+  document.getElementById("contentArea").addEventListener("input", updateStats);
+
+  // Update stats on page load (for when there's an error and content is preserved)
+  updateStats();
+</script>
+{% endblock %}

@@ -1,0 +1,4 @@
+.venv/
+instance/
+*.sqlite
+__pycache__/
