@@ -65,10 +65,8 @@ content %} {% if error %}
     ).textContent = `${charCount.toLocaleString()} characters • ${wordCount.toLocaleString()} words • ${lineCount.toLocaleString()} lines`;
   }
 
-  // Update stats on input
   document.getElementById("contentArea").addEventListener("input", updateStats);
 
-  // Update stats on page load (for when there's an error and content is preserved)
   updateStats();
 </script>
 {% endblock %}
